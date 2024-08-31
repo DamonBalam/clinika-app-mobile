@@ -24,13 +24,18 @@
     >
       <q-scroll-area
         style="
-          height: calc(100% - 150px);
+          height: calc(100% - 180px);
           margin-top: 150px;
           border-right: 1px solid #ddd;
         "
       >
         <q-list padding>
-          <q-item clickable v-ripple to="/nosotros">
+          <q-item
+            clickable
+            v-ripple
+            to="/nosotros"
+            :class="$q.platform.is.ios ? '' : 'q-mt-md'"
+          >
             <q-item-section avatar>
               <q-icon name="o_person" />
             </q-item-section>
@@ -51,17 +56,6 @@
 
             <q-item-section> Cerrar Sesión </q-item-section>
           </q-item>
-          <!-- <q-item class="recordatorio">
-            <q-item-section>
-              <h6 class="q-my-none">Recordatorio:</h6>
-              <p style="text-align: justify">
-                Los pacientes del consultorio tienen acceso a la aplicación por
-                30 días después de su última cita. Después de eso pueden
-                recuperar el acceso agendando una nueva cita o comprando la
-                aplicación. Comunicarse con la nutricionista.
-              </p>
-            </q-item-section>
-          </q-item> -->
 
           <div class="absolute-bottom text-center" style="height: 200px">
             <q-img src="../assets/img/logo.png" style="width: 180px" />
@@ -70,9 +64,9 @@
         </q-list>
       </q-scroll-area>
 
-      <q-img class="absolute-top bg-primary" style="height: 150px">
+      <q-img class="absolute-top bg-primary" style="height: 180px">
         <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
+          <q-avatar size="56px" class="q-mb-sm q-mt-md">
             <img src="../assets/img/avatar.png" />
           </q-avatar>
           <div class="text-weight-bold">
@@ -86,6 +80,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
     <q-footer style="border-top: 1px solid #fefefe">
       <q-tabs v-model="tab" :mobile-arrows="true" class="bg-white text-primary">
         <q-route-tab
