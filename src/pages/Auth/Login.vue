@@ -10,14 +10,27 @@ const store = useAuthStore();
 const { login, loginWithCookies } = store;
 
 const myForm = ref(null);
+
 const myFormRecovery = ref(null);
+
 const isPwd = ref(true);
-const usuario = ref("");
+
+// const usuario = ref("");
+
+// const password = ref("");
+
+const usuario = ref("admin@gmail.com");
+
+const password = ref("admin01");
+
 const usuarioRecovery = ref("");
-const password = ref("");
+
 const message = ref<string>("");
+
 const messageRecovery = ref<string>("");
+
 const accept = ref(false);
+
 const disabled = ref(false);
 
 const showRecovery = ref(false);
@@ -43,11 +56,7 @@ async function handleSubmit() {
         );
 
         if (code === 200) {
-          if (accept.value) {
-            loginWithCookies(data);
-          } else {
-            login(data);
-          }
+          login(data);
         } else {
           message.value = msg || "Error al iniciar sesión";
 

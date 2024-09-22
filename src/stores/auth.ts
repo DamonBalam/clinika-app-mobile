@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
-import { authDataServices } from "src/services/Auth/AuthDataService";
+// import { authDataServices } from "src/services/Auth/AuthDataService";
 import { Cookies } from "quasar";
 import { IUser } from "src/services/Auth/IUser";
 
 export interface AuthState {
   counter: number;
-  user: IUser;
+  user: IUser | {};
   token: string;
   initLoader: boolean;
 }
@@ -36,31 +36,26 @@ export const useAuthStore = defineStore("auth", {
       Cookies.set("user", payload.user);
       Cookies.set("access_token", payload.token);
     },
-    setLocalStorageWithTime(payload: any) {
-      /* Cookies */
-      Cookies.set("user", payload.user, {
-        expires: 100,
-      });
-      Cookies.set("access_token", payload.token, {
-        expires: 100,
-      });
-    },
     login(payload: any) {
       this.setUser(payload);
       this.setLocalStorage(payload);
-      this.router.push("/inicio");
-    },
-    loginWithCookies(payload: any) {
-      this.setUser(payload);
-      this.setLocalStorageWithTime(payload);
-      this.router.push("/inicio");
+      this.router.push("/perfil");
     },
     async logout() {
       try {
         // await authDataServices.logout();
         // this.deleteLocalStorage();
 
-        this.user = {};
+        this.user = {
+          id: null,
+          name: "",
+          first_lastname: "",
+          last_lastname: "",
+          apellidos: "",
+          email: "",
+          telefono: "",
+          codigo_area: "",
+        };
         this.token = "";
         /* Cookies */
         Cookies.remove("user");

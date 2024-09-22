@@ -28,16 +28,19 @@ const routes: RouteRecordRaw[] = [
       {
         path: "perfil",
         name: "PerfilPage",
+        meta: { requiresAuth: true },
         component: PerfilPage,
       },
       {
         path: "history",
         name: "HistoryPage",
+        meta: { requiresAuth: true },
         component: HistoryPage,
       },
       {
         path: "plan",
         name: "PlanPage",
+        meta: { requiresAuth: true },
         component: PlanPage,
       },
     ],

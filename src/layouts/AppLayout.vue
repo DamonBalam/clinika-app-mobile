@@ -114,8 +114,13 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
+import { useAuthStore } from "stores/auth";
+
+const store = useAuthStore();
+const { logout, getUser } = store;
+
 const handleLogout = () => {
-  console.log("Logout");
+  logout();
 };
 
 const leftDrawerOpen = ref(false);
