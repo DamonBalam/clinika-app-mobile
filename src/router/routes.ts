@@ -10,6 +10,17 @@ const ErrorNotFound = () => import("pages/ErrorNotFound.vue");
 
 const routes: RouteRecordRaw[] = [
   {
+    path: "/login",
+    component: () => import("layouts/AuthLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "Login",
+        component: () => import("pages/Auth/Login.vue"),
+      },
+    ],
+  },
+  {
     path: "/",
     redirect: "/perfil",
     component: AppLayout,
