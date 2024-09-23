@@ -22,6 +22,24 @@ export const useAuthStore = defineStore("auth", {
     isAuth: (state) => state.token !== "",
     getUser: (state) => state.user,
     getLoader: (state) => state.initLoader,
+    getFullName: (state) => {
+      if (state.user) {
+        if ("name" in state.user && "first_lastname" in state.user) {
+          return `${(state.user as IUser).name} ${
+            (state.user as IUser).first_lastname
+          }`;
+        }
+        return "";
+      }
+    },
+    getEmail: (state) => {
+      if (state.user) {
+        if ("email" in state.user) {
+          return (state.user as IUser).email;
+        }
+        return "";
+      }
+    },
   },
   actions: {
     setLoader(payload: boolean) {
@@ -65,13 +83,6 @@ export const useAuthStore = defineStore("auth", {
         console.log(error);
       }
     },
-    deleteLocalStorage() {
-      // this.user = {};
-      // this.token = '';
-      // /* Cookies */
-      // Cookies.remove('user');
-      // Cookies.remove('access_token');
-      // this.router.push('/login');
-    },
+    deleteLocalStorage() {},
   },
 });

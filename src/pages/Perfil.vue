@@ -53,8 +53,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
+import { useAuthStore } from "stores/auth";
 
+const store = useAuthStore();
 import TheTitle from "../components/atoms/TheTitle.vue";
 import PerfilDataItem from "../components/Perfil/PerfilDataItem.vue";
 
@@ -62,7 +64,9 @@ defineOptions({
   name: "PerfilPage",
 });
 
-const nameProfile = ref("Arturo Balam");
+const nameProfile = computed(() => {
+  return store.getFullName;
+});
 
 const data = reactive([
   {

@@ -55,7 +55,11 @@ async function handleSubmit() {
           password.value
         );
 
+        console.log("data", data);
+
         if (code === 200) {
+          console.log("success");
+
           login(data);
         } else {
           message.value = msg || "Error al iniciar sesión";

@@ -6,7 +6,7 @@ class AuthDataService {
   async login(email: string, password: string): Promise<IResponseAuth<IUser>> {
     let response = await API.post("login", { data: { email, password } });
 
-    return response;
+    return response.data;
   }
 
   async logout(): Promise<IResponse<null>> {

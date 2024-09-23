@@ -42,7 +42,7 @@
 
             <q-item-section> ¿Quiénes somos? </q-item-section>
           </q-item>
-          <q-item clickable v-ripple to="/update-password">
+          <q-item clickable disable v-ripple to="/update-password">
             <q-item-section avatar>
               <q-icon name="o_settings" />
             </q-item-section>
@@ -64,15 +64,15 @@
         </q-list>
       </q-scroll-area>
 
-      <q-img class="absolute-top bg-primary" style="height: 180px">
+      <q-img class="absolute-top bg-primary" style="height: 160px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm q-mt-md">
             <img src="../assets/img/avatar.png" />
           </q-avatar>
           <div class="text-weight-bold">
-            {{ "Arturo Saldivar" }}
+            {{ nameProfile }}
           </div>
-          <div>{{ "damonbalam@gmail.com" }}</div>
+          <div>{{ emailProfile }}</div>
         </div>
       </q-img>
     </q-drawer>
@@ -122,6 +122,14 @@ const { logout, getUser } = store;
 const handleLogout = () => {
   logout();
 };
+
+const nameProfile = computed(() => {
+  return store.getFullName;
+});
+
+const emailProfile = computed(() => {
+  return store.getEmail;
+});
 
 const leftDrawerOpen = ref(false);
 const tab = ref("perfil");
