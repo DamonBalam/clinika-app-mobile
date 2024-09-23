@@ -35,19 +35,7 @@
       </div>
 
       <div class="col-12 q-pa-sm">
-        <q-card
-          bordered
-          flat
-          style="height: 40px"
-          class="bg-primary text-white"
-        >
-          <div
-            class="text-subtitle1 text-bold row justify-start items-center q-pl-md"
-            style="height: 40px"
-          >
-            Datos de tu ultima cita
-          </div>
-        </q-card>
+        <the-title title="Datos de tu ultima cita" />
       </div>
 
       <div class="col-12 q-pa-sm">
@@ -58,32 +46,27 @@
       </div>
 
       <div class="col-6 q-pa-sm" v-for="(item, index) in data" :key="index">
-        <q-card bordered flat>
-          <q-card-section>
-            <div class="text-subtitle1 text-center">
-              {{ item.value }}
-            </div>
-          </q-card-section>
-          <q-separator inset />
-          <q-card-section>
-            <div class="text-subtitle2 text-bold text-center">
-              {{ item.label }}
-            </div>
-          </q-card-section>
-        </q-card>
+        <perfil-data-item :item="item" />
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
+import { useAuthStore } from "stores/auth";
+
+const store = useAuthStore();
+import TheTitle from "../components/atoms/TheTitle.vue";
+import PerfilDataItem from "../components/Perfil/PerfilDataItem.vue";
 
 defineOptions({
   name: "PerfilPage",
 });
 
-const nameProfile = ref("Arturo Balam");
+const nameProfile = computed(() => {
+  return store.getFullName;
+});
 
 const data = reactive([
   {
