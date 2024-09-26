@@ -41,11 +41,11 @@
       <div class="col-12 q-pa-sm">
         <div class="text-center text-subtitle2">
           <span class="text-bold q-mr-sm">Fecha de registro:</span>
-          <span>{{ "06 de Octubre 2024" }}</span>
+          <span>{{ lastCitaDate }}</span>
         </div>
       </div>
 
-      <div class="col-6 q-pa-sm" v-for="(item, index) in data" :key="index">
+      <div class="col-6 q-pa-sm" v-for="(item, index) in lastCita" :key="index">
         <perfil-data-item :item="item" />
       </div>
     </div>
@@ -53,8 +53,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, onMounted } from "vue";
 import { useAuthStore } from "stores/auth";
+
+import { citaControlDataServices } from "../services/CitasControl/CitaControlDataService.ts";
+import { ICitaControl } from "../services/CitasControl/CitaControl";
 
 const store = useAuthStore();
 import TheTitle from "../components/atoms/TheTitle.vue";
@@ -64,34 +67,71 @@ defineOptions({
   name: "PerfilPage",
 });
 
+const { getUser } = store;
+
+const items = ref<ICitaControl[]>([]);
 const nameProfile = computed(() => {
   return store.getFullName;
 });
 
-const data = reactive([
-  {
-    label: "Peso",
-    value: "80 kg",
-  },
-  {
-    label: "Masa Muscular",
-    value: "80 kg",
-  },
-  {
-    label: "Grasa",
-    value: "80 kg",
-  },
-  {
-    label: "% Grasa",
-    value: "80 kg",
-  },
-  {
-    label: "CC",
-    value: "80 kg",
-  },
-  {
-    label: "Grasa Visceral",
-    value: "80 kg",
-  },
-]);
+const lastCitaDate = computed(() => {
+  const data = items.value[0] || {};
+
+  return data.date;
+});
+
+const lastCita = computed(() => {
+  const data = items.value[0] || {};
+
+  return [
+    {
+      label: "Peso",
+      value: `${data.weight} kg`,
+    },
+    {
+      label: "Masa Muscular",
+      value: `${data.muscle} kg`,
+    },
+    {
+      label: "Grasa",
+      value: `${data.fat} kg`,
+    },
+    {
+      label: "% Grasa",
+      value: `${data.average_fat} %`,
+    },
+    {
+      label: "CC",
+      value: `${data.cc}`,
+    },
+    {
+      label: "Grasa Visceral",
+      value: `${data.viseral_fat} kg`,
+    },
+  ];
+});
+
+const getItems = async () => {
+  // loading.value = true;
+
+  try {
+    const data = await citaControlDataServices.getAll(getUser.id);
+
+    console.log("data", data);
+
+    if (data.code === 200) {
+      items.value = data.data.sort((a: ICitaControl, b: ICitaControl) => {
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  // loading.value = false;
+};
+
+onMounted(() => {
+  getItems();
+});
 </script>
