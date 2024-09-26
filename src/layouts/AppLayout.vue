@@ -67,7 +67,7 @@
       <q-img class="absolute-top bg-primary" style="height: 160px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm q-mt-md">
-            <img src="../assets/img/avatar.png" />
+            <img :src="`https://ui-avatars.com/api/?name=${avatarProfile}`" />
           </q-avatar>
           <div class="text-weight-bold">
             {{ nameProfile }}
@@ -125,6 +125,10 @@ const handleLogout = () => {
 
 const nameProfile = computed(() => {
   return store.getFullName;
+});
+
+const avatarProfile = computed(() => {
+  return store.getAvatarWithInitials;
 });
 
 const emailProfile = computed(() => {

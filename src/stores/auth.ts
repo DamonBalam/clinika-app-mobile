@@ -40,6 +40,16 @@ export const useAuthStore = defineStore("auth", {
         return "";
       }
     },
+    getAvatarWithInitials: (state) => {
+      if (state.user) {
+        if ("name" in state.user && "first_lastname" in state.user) {
+          return `${(state.user as IUser).name}+${
+            (state.user as IUser).first_lastname
+          }`;
+        }
+        return "";
+      }
+    },
   },
   actions: {
     setLoader(payload: boolean) {
