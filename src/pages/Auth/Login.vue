@@ -15,13 +15,13 @@ const myFormRecovery = ref(null);
 
 const isPwd = ref(true);
 
-const usuario = ref("");
+// const usuario = ref("");
 
-const password = ref("");
+// const password = ref("");
 
-// const usuario = ref("admin@gmail.com");
+const usuario = ref("arturosaldivarb@gmail.com");
 
-// const password = ref("admin01");
+const password = ref("jhjKVIBNDb");
 
 const usuarioRecovery = ref("");
 
