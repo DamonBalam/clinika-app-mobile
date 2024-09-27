@@ -1,5 +1,16 @@
 {
   "appId": "org.capacitor.quasar.app",
   "appName": "Clinika",
-  "webDir": "www"
+  "webDir": "www",
+  "server": {
+    "hostname": "localhost",
+    "port": 3000,
+    "androidScheme": "http",
+    "iosScheme": "http"
+  },
+  "plugins": {
+    "CapacitorCookies": {
+      "enabled": true
+    }
+  }
 }
