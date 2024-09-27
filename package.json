@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
-    "build": "quasar build"
+    "build": "quasar build",
+    "icons": "icongenie generate -i icono.png --skip-trim --theme-color ffffff"
   },
   "dependencies": {
     "axios": "^1.2.1",

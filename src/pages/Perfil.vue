@@ -56,7 +56,7 @@
 import { ref, reactive, computed, onMounted } from "vue";
 import { useAuthStore } from "stores/auth";
 
-import { citaControlDataServices } from "../services/CitasControl/CitaControlDataService.ts";
+import { citaControlDataServices } from "../services/CitasControl/CitaControlDataService";
 import { ICitaControl } from "../services/CitasControl/CitaControl";
 
 const store = useAuthStore();
@@ -77,7 +77,7 @@ const nameProfile = computed(() => {
 const lastCitaDate = computed(() => {
   const data = items.value[0] || {};
 
-  return data.date;
+  return data.fecha;
 });
 
 const lastCita = computed(() => {
