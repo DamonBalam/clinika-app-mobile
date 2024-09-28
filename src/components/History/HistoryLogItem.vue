@@ -10,10 +10,10 @@
       </div>
       <div class="q-mx-sm" v-for="(value, key) in item">
         <template v-if="!['id', 'date'].includes(key)">
-          <label class="q-mr-sm text-weight-bold" for="weight">
+          <label class="q-mr-sm text-weight-light" for="weight">
             {{ $t(`History.${key}`) }}:
           </label>
-          <span class="inline-block q-mb-none text-weight-light">{{ value }}</span>
+          <span class="inline-block q-mb-none text-weight-bold ">{{ value }}</span>
         </template>
       </div>
     </q-card-section>

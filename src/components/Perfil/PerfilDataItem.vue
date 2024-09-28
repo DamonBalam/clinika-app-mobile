@@ -1,13 +1,11 @@
 <template>
   <q-card bordered flat>
     <q-card-section>
-      <div class="text-subtitle1 text-center text-weight-light">
+      <div class="text-h5 text-center text-weight-bold">
         {{ item.value }}
       </div>
-    </q-card-section>
-    <q-separator inset />
-    <q-card-section>
-      <div class="text-subtitle2 text-weight-bold text-center">
+      <q-separator inset />
+      <div class="text-subtitle2 text-weight-light text-center">
         {{ item.label }}
       </div>
     </q-card-section>

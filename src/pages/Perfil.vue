@@ -10,23 +10,22 @@
       <div class="col-6 q-pa-sm">
         <q-card bordered flat>
           <q-card-section>
-            <div class="text-subtitle1 text-bold text-center">CONSULTORIO</div>
-          </q-card-section>
-          <q-separator inset />
-          <q-card-section>
+            <div class="text-subtitle1 text-bold text-center">
+              Tu consultorio
+            </div>
             <div class="text-subtitle1 text-center">
               {{ clinic }}
             </div>
           </q-card-section>
         </q-card>
       </div>
+
       <div class="col-6 q-pa-sm">
         <q-card bordered flat>
           <q-card-section>
-            <div class="text-subtitle1 text-bold text-center">NUTRIOLOGO</div>
-          </q-card-section>
-          <q-separator inset />
-          <q-card-section>
+            <div class="text-subtitle1 text-bold text-center">
+              Tu nutricionista
+            </div>
             <div class="text-subtitle1 text-center">
               {{ nutri }}
             </div>
@@ -35,38 +34,50 @@
       </div>
 
       <div class="col-12 q-pa-sm">
-        <the-title title="Datos de tu ultima cita" />
+        <the-title title="Información personal" />
       </div>
 
       <div class="col-12 q-pa-sm">
-        <div class="text-center text-subtitle2">
-          <span class="text-bold q-mr-sm">Fecha de registro:</span>
-          <span>{{ lastCitaDate }}</span>
+        <div class="text-start text-subtitle2">
+          <span class="text-bold q-mr-sm text-gray">Última actualización:</span>
+          <span class="text-gray">{{ lastCitaDate }}</span>
+        </div>
+        <div class="text-start text-subtitle1">
+          <span class="text-gray">Estos son los datos de tu última cita</span>
         </div>
       </div>
 
-      <div class="col-6 q-pa-sm" v-for="(item, index) in lastCita" :key="index">
+      <div
+        v-if="!isLoading"
+        class="col-6 q-pa-sm"
+        v-for="(item, index) in lastCita"
+        :key="index"
+      >
         <perfil-data-item :item="item" />
+      </div>
+
+      <div v-else class="col-6 q-pa-sm" v-for="n in 6">
+        <q-skeleton width="180px" height="100px" />
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "stores/auth";
 import { pacienteDataServices } from "src/services/Perfil/PacienteDataService";
 import { citaControlDataServices } from "../services/CitasControl/CitaControlDataService";
 import { ICitaControl } from "../services/CitasControl/CitaControl";
-
-const store = useAuthStore();
 import TheTitle from "../components/atoms/TheTitle.vue";
 import PerfilDataItem from "../components/Perfil/PerfilDataItem.vue";
+
+const store = useAuthStore();
 
 defineOptions({
   name: "PerfilPage",
 });
-
+const isLoading = ref<boolean>(false);
 const items = ref<ICitaControl[]>([]);
 const paciente = ref<any>({});
 const nameProfile = computed(() => {
@@ -120,6 +131,8 @@ const lastCita = computed(() => {
 
 const getItems = async () => {
   try {
+    isLoading.value = true;
+
     const data = await citaControlDataServices.getAll(store.getUser.id);
 
     if (data.code === 200) {
@@ -133,6 +146,8 @@ const getItems = async () => {
     }
   } catch (error) {
     console.log(error);
+  } finally {
+    isLoading.value = false;
   }
 };
 
@@ -155,3 +170,9 @@ onMounted(() => {
   getPaciente();
 });
 </script>
+
+<style lang="scss" scoped>
+.text-gray {
+  color: #525252 !important;
+}
+</style>

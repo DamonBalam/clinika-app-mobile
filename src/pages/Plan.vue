@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="row">
       <div class="col-12 q-pa-sm">
-        <the-title title="Plan de Alimentación" />
+        <the-title title="Plan de alimentación" />
       </div>
 
       <div class="col-12 q-pa-sm">
@@ -13,6 +13,7 @@
       </div>
 
       <div
+        v-if="!isLoading"
         class="col-12 q-pa-sm"
         v-for="(value, key, index) in mealPlan"
         :key="index"
@@ -20,6 +21,10 @@
         <template v-if="!['id', 'date'].includes(key)">
           <plan-data-item :item="value" :title="key" />
         </template>
+      </div>
+
+      <div v-else class="col-12 q-pa-sm" v-for="n in 5">
+        <q-skeleton width="100%" height="150px" />
       </div>
     </div>
   </q-page>
@@ -38,6 +43,7 @@ defineOptions({
 });
 
 const fecha = ref<string | null>(null);
+const isLoading = ref<boolean>(false);
 const idCita = computed(() => {
   return store.getLastIdCita;
 });
@@ -95,6 +101,7 @@ const mapperData = (data: any) => {
 const getItems = async () => {
   if (idCita.value !== null)
     try {
+      isLoading.value = true;
       const data = await eqNuDataService.getByCita(
         idCita.value as unknown as number
       );
@@ -102,7 +109,7 @@ const getItems = async () => {
       if (data.code === 200) {
         const equivalencias = data.data.equivalencias_nutricionales[0];
 
-        fecha.value = data.data.cita_control.date
+        fecha.value = data.data.cita_control.date;
         plan.value = equivalencias;
       } else {
         fecha.value = null;
@@ -111,6 +118,8 @@ const getItems = async () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      isLoading.value = false;
     }
 };
 

@@ -19,9 +19,9 @@ const isPwd = ref(true);
 
 // const password = ref("");
 
-const usuario = ref("damonbalam@gmail.com");
+const usuario = ref("arturinho_99@hotmail.com");
 
-const password = ref("l8ayzkIi7J");
+const password = ref("XELCkUSBRs");
 
 const usuarioRecovery = ref("");
 

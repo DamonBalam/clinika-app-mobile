@@ -2,15 +2,19 @@
   <q-page class="q-pa-md">
     <div class="row">
       <div class="col-12 q-pa-sm">
-        <the-title title="Tu Historial" />
+        <the-title title="Tu historial" />
       </div>
 
       <div
+        v-if="!isLoading"
         class="col-12 q-pa-sm"
         v-for="(item, index) in itemsFormatted"
         :key="index"
       >
         <history-log-item :item="item" />
+      </div>
+      <div v-else class="col-12 q-pa-sm" v-for="n in 5">
+        <q-skeleton width="100%" height="150px" />
       </div>
     </div>
   </q-page>
@@ -34,6 +38,7 @@ defineOptions({
 
 const { getUser } = store;
 const items = ref<ICitaControl[]>([]);
+const isLoading = ref<boolean>(false);
 
 const itemsFormatted = computed(() => {
   return items.value.map((item) => {
@@ -52,6 +57,7 @@ const itemsFormatted = computed(() => {
 
 const getItems = async () => {
   try {
+    isLoading.value = true;
     const data = await citaControlDataServices.getAll(getUser.id);
 
     if (data.code === 200) {
@@ -65,6 +71,8 @@ const getItems = async () => {
     }
   } catch (error) {
     console.log(error);
+  } finally {
+    isLoading.value = false;
   }
 };
 

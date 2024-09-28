@@ -2,9 +2,9 @@ export default {
   Plan: {
     desayuno: "Desayuno",
     media_manana: "Media mañana",
-    comida: "Comida",
-    merienda: "Merienda",
+    comida: "Almuerzo",
+    merienda: "Media tarde",
     cena: "Cena",
-    merienda_noche: "Merienda noche",
+    merienda_noche: "Media noche",
   },
 };
