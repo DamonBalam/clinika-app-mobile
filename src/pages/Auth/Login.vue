@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "stores/auth";
-import { authDataServices } from "../../services/Auth/AuthDataService.ts";
+import { authDataServices } from "../../services/Auth/AuthDataService";
 import { useQuasar } from "quasar";
 const $q = useQuasar();
 
 const store = useAuthStore();
 
-const { login, loginWithCookies } = store;
+const { login } = store;
 
 const myForm = ref(null);
 
@@ -15,13 +15,13 @@ const myFormRecovery = ref(null);
 
 const isPwd = ref(true);
 
-const usuario = ref("");
+// const usuario = ref("");
 
-const password = ref("");
+// const password = ref("");
 
-// const usuario = ref("arturosaldivarb@gmail.com");
+const usuario = ref("damonbalam@gmail.com");
 
-// const password = ref("jhjKVIBNDb");
+const password = ref("l8ayzkIi7J");
 
 const usuarioRecovery = ref("");
 

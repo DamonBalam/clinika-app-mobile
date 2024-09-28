@@ -8,13 +8,13 @@
       <div class="col-12 q-pa-sm">
         <div class="text-center text-subtitle2">
           <span class="text-bold q-mr-sm">Fecha de actualización:</span>
-          <span>{{ "31 de Agosto 2024" }}</span>
+          <span>{{ fecha }}</span>
         </div>
       </div>
 
       <div
         class="col-12 q-pa-sm"
-        v-for="(value, key, index) in meal_plan"
+        v-for="(value, key, index) in mealPlan"
         :key="index"
       >
         <template v-if="!['id', 'date'].includes(key)">
@@ -26,153 +26,95 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
-
+import { computed, onMounted, reactive, ref } from "vue";
+import { useAuthStore } from "stores/auth";
+const store = useAuthStore();
 import TheTitle from "../components/atoms/TheTitle.vue";
 import PlanDataItem from "../components/Plan/PlanDataItem.vue";
+import { eqNuDataService } from "src/services/EqNu/EqNuDataService";
 
 defineOptions({
   name: "PlanPage",
 });
 
-const meal_plan = reactive({
-  id: 1,
-  desayuno: [
-    {
-      id: 1,
-      count: 1,
-      type_food: "Carbohidratos",
-    },
-    {
-      id: 2,
-      count: 1,
-      type_food: "Frutas",
-    },
-    {
-      id: 3,
-      count: 1,
-      type_food: "Proteínas",
-    },
-    {
-      id: 4,
-      count: 1,
-      type_food: "Verduras",
-    },
-  ],
-  media_manana: [
-    {
-      id: 1,
-      count: 1,
-      type_food: "carbohidratos",
-    },
-    {
-      id: 1,
-      count: 1,
-      type_food: "Carbohidratos",
-    },
-    {
-      id: 2,
-      count: 1,
-      type_food: "Frutas",
-    },
-    {
-      id: 3,
-      count: 1,
-      type_food: "Proteínas",
-    },
-    {
-      id: 4,
-      count: 1,
-      type_food: "Verduras",
-    },
-  ],
-  comida: [
-    {
-      id: 1,
-      count: 1,
-      type_food: "Carbohidratos",
-    },
-    {
-      id: 2,
-      count: 1,
-      type_food: "Frutas",
-    },
-    {
-      id: 3,
-      count: 1,
-      type_food: "Proteínas",
-    },
-    {
-      id: 4,
-      count: 1,
-      type_food: "Verduras",
-    },
-  ],
-  merienda: [
-    {
-      id: 1,
-      count: 1,
-      type_food: "Carbohidratos",
-    },
-    {
-      id: 2,
-      count: 1,
-      type_food: "Frutas",
-    },
-    {
-      id: 3,
-      count: 1,
-      type_food: "Proteínas",
-    },
-    {
-      id: 4,
-      count: 1,
-      type_food: "Verduras",
-    },
-  ],
-  cena: [
-    {
-      id: 1,
-      count: 1,
-      type_food: "Carbohidratos",
-    },
-    {
-      id: 2,
-      count: 1,
-      type_food: "Frutas",
-    },
-    {
-      id: 3,
-      count: 1,
-      type_food: "Proteínas",
-    },
-    {
-      id: 4,
-      count: 1,
-      type_food: "Verduras",
-    },
-  ],
-  merienda_noche: [
-    {
-      id: 1,
-      count: 1,
-      type_food: "Carbohidratos",
-    },
-    {
-      id: 2,
-      count: 1,
-      type_food: "Frutas",
-    },
-    {
-      id: 3,
-      count: 1,
-      type_food: "Proteínas",
-    },
-    {
-      id: 4,
-      count: 1,
-      type_food: "Verduras",
-    },
-  ],
+const fecha = ref<string | null>(null);
+const idCita = computed(() => {
+  return store.getLastIdCita;
+});
+
+const plan = ref<any[]>([]);
+
+const mealPlan = computed(() => {
+  const comidas = [
+    "breakfast",
+    "mid_lunch",
+    "lunch",
+    "mid_dinner",
+    "dinner",
+    "snack",
+  ];
+
+  const [breakfast, mid_lunch, lunch, mid_dinner, dinner, snack] = comidas?.map(
+    (comida) => JSON.parse(plan?.value[comida] || "{}")
+  );
+
+  const desayuno = mapperData(breakfast);
+  const media_mañana = mapperData(mid_lunch);
+  const almuerzo = mapperData(lunch);
+  const media_tarde = mapperData(mid_dinner);
+  const cena = mapperData(dinner);
+  const merienda_noche = mapperData(snack);
+
+  const data = {
+    id: plan.value.id,
+    desayuno,
+    media_manana: media_mañana,
+    comida: almuerzo,
+    merienda: media_tarde,
+    cena,
+    merienda_noche,
+  };
+  return data || {};
+});
+
+const mapperData = (data: any) => {
+  const arrayLocal = [];
+  Object.entries(data).forEach(([key, value]) => {
+    if (value !== 0) {
+      arrayLocal.push({
+        id: `${key}-${value}`,
+        count: value,
+        type_food: key,
+      });
+    }
+  });
+
+  return arrayLocal || [];
+};
+
+const getItems = async () => {
+  if (idCita.value !== null)
+    try {
+      const data = await eqNuDataService.getByCita(
+        idCita.value as unknown as number
+      );
+
+      if (data.code === 200) {
+        const equivalencias = data.data.equivalencias_nutricionales[0];
+
+        fecha.value = data.data.cita_control.date
+        plan.value = equivalencias;
+      } else {
+        fecha.value = null;
+
+        plan.value = [];
+      }
+    } catch (error) {
+      console.log(error);
+    }
+};
+
+onMounted(async () => {
+  await getItems();
 });
 </script>

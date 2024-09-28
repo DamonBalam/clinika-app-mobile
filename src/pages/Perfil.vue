@@ -15,7 +15,7 @@
           <q-separator inset />
           <q-card-section>
             <div class="text-subtitle1 text-center">
-              {{ "Consultorio 1" }}
+              {{ clinic }}
             </div>
           </q-card-section>
         </q-card>
@@ -28,7 +28,7 @@
           <q-separator inset />
           <q-card-section>
             <div class="text-subtitle1 text-center">
-              {{ "Nutriologo 1" }}
+              {{ nutri }}
             </div>
           </q-card-section>
         </q-card>
@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted } from "vue";
 import { useAuthStore } from "stores/auth";
-
+import { pacienteDataServices } from "src/services/Perfil/PacienteDataService";
 import { citaControlDataServices } from "../services/CitasControl/CitaControlDataService";
 import { ICitaControl } from "../services/CitasControl/CitaControl";
 
@@ -67,9 +67,8 @@ defineOptions({
   name: "PerfilPage",
 });
 
-const { getUser } = store;
-
 const items = ref<ICitaControl[]>([]);
+const paciente = ref<any>({});
 const nameProfile = computed(() => {
   return store.getFullName;
 });
@@ -77,7 +76,15 @@ const nameProfile = computed(() => {
 const lastCitaDate = computed(() => {
   const data = items.value[0] || {};
 
-  return data.fecha;
+  return data.date;
+});
+
+const clinic = computed(() => {
+  return paciente.value.consultorio?.nombre || "";
+});
+
+const nutri = computed(() => {
+  return paciente.value.nutricionista?.nombre || "";
 });
 
 const lastCita = computed(() => {
@@ -112,26 +119,39 @@ const lastCita = computed(() => {
 });
 
 const getItems = async () => {
-  // loading.value = true;
-
   try {
-    const data = await citaControlDataServices.getAll(getUser.id);
-
-    console.log("data", data);
+    const data = await citaControlDataServices.getAll(store.getUser.id);
 
     if (data.code === 200) {
       items.value = data.data.sort((a: ICitaControl, b: ICitaControl) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
       });
+
+      store.setLastIDCita(items.value[0]?.id);
     }
   } catch (error) {
     console.log(error);
   }
-
-  // loading.value = false;
 };
+
+async function getPaciente() {
+  if (!store.getUser.id) {
+    return;
+  }
+
+  const res = await pacienteDataServices.getById(store.getUser.id);
+
+  console.log("res", res.data);
+
+  if (res.code == 200) {
+    paciente.value = res.data.user;
+  }
+}
 
 onMounted(() => {
   getItems();
+  getPaciente();
 });
 </script>

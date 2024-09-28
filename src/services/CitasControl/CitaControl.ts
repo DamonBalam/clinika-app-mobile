@@ -1,9 +1,10 @@
-import IAuditable from '../Auditable';
+import IAuditable from "../Auditable";
 
 export interface ICitaControl extends IAuditable {
   id?: number;
   estatura: number | string;
   fecha: string;
+  date?: string;
   peso: number | string;
   musculo: number | string;
   grasa: number | string;
@@ -18,9 +19,9 @@ export interface ICitaControl extends IAuditable {
 }
 
 enum EstadoConsulta {
-  NO_CONFIRMADA = 'No confirmada',
-  CANCELADA = 'Cancelada',
-  CONFIRMADA = 'Confirmada',
+  NO_CONFIRMADA = "No confirmada",
+  CANCELADA = "Cancelada",
+  CONFIRMADA = "Confirmada",
 }
 
 export interface ICitaAgendaDTO {

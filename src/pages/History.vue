@@ -54,12 +54,14 @@ const getItems = async () => {
   try {
     const data = await citaControlDataServices.getAll(getUser.id);
 
-    console.log("data", data);
-
     if (data.code === 200) {
       items.value = data.data.sort((a: ICitaControl, b: ICitaControl) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
       });
+
+      store.setLastIDCita(items.value[0]?.id);
     }
   } catch (error) {
     console.log(error);

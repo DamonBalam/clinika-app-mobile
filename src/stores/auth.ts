@@ -8,6 +8,7 @@ export interface AuthState {
   user: IUser | {};
   token: string;
   initLoader: boolean;
+  lastIdCita: number | null;
 }
 
 export const useAuthStore = defineStore("auth", {
@@ -16,6 +17,7 @@ export const useAuthStore = defineStore("auth", {
       user: {},
       token: "",
       initLoader: false,
+      lastIdCita: null,
     } as AuthState),
 
   getters: {
@@ -50,6 +52,7 @@ export const useAuthStore = defineStore("auth", {
         return "";
       }
     },
+    getLastIdCita: (state) => state.lastIdCita,
   },
   actions: {
     setLoader(payload: boolean) {
@@ -58,6 +61,13 @@ export const useAuthStore = defineStore("auth", {
     setUser(payload: any) {
       this.user = payload.user;
       this.token = payload.token;
+    },
+    setLastIDCita(payload: number | null) {
+      console.log("payload", payload);
+
+      if (payload !== null) {
+        this.lastIdCita = payload;
+      }
     },
     setLocalStorage(payload: any) {
       /* Cookies */
