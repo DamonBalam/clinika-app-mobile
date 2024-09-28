@@ -8,7 +8,7 @@
       <div class="col-12 q-pa-sm">
         <div class="text-center text-subtitle2">
           <span class="text-bold q-mr-sm">Fecha de actualización:</span>
-          <span>{{ fecha }}</span>
+          <span>{{ formatDate(fecha) }}</span>
         </div>
       </div>
 
@@ -47,6 +47,16 @@ const isLoading = ref<boolean>(false);
 const idCita = computed(() => {
   return store.getLastIdCita;
 });
+
+const formatDate = (dateToFormate: string) => {
+  let fecha = new Date(dateToFormate);
+  fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+  return new Date(fecha).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
 
 const plan = ref<any[]>([]);
 

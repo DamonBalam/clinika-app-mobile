@@ -6,14 +6,18 @@
         style="border-radius: 5px"
       >
         <label class="q-mr-sm">Fecha:</label>
-        <p class="inline-block text-bold q-mb-none">{{ item.date }}</p>
+        <p class="inline-block text-bold q-mb-none">
+          {{ formatDate(item.date) }}
+        </p>
       </div>
       <div class="q-mx-sm" v-for="(value, key) in item">
         <template v-if="!['id', 'date'].includes(key)">
           <label class="q-mr-sm text-weight-light" for="weight">
             {{ $t(`History.${key}`) }}:
           </label>
-          <span class="inline-block q-mb-none text-weight-bold ">{{ value }}</span>
+          <span class="inline-block q-mb-none text-weight-bold">{{
+            value
+          }}</span>
         </template>
       </div>
     </q-card-section>
@@ -35,6 +39,16 @@ defineProps<{
     visceral_fat: string;
   };
 }>();
+
+const formatDate = (dateToFormate: string) => {
+  let fecha = new Date(dateToFormate);
+  fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+  return new Date(fecha).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
 </script>
 
 <style scoped></style>

@@ -40,7 +40,7 @@
       <div class="col-12 q-pa-sm">
         <div class="text-start text-subtitle2">
           <span class="text-bold q-mr-sm text-gray">Última actualización:</span>
-          <span class="text-gray">{{ lastCitaDate }}</span>
+          <span class="text-gray">{{ formatDate(lastCitaDate) }}</span>
         </div>
         <div class="text-start text-subtitle1">
           <span class="text-gray">Estos son los datos de tu última cita</span>
@@ -71,7 +71,7 @@ import { citaControlDataServices } from "../services/CitasControl/CitaControlDat
 import { ICitaControl } from "../services/CitasControl/CitaControl";
 import TheTitle from "../components/atoms/TheTitle.vue";
 import PerfilDataItem from "../components/Perfil/PerfilDataItem.vue";
-
+import { date } from "quasar";
 const store = useAuthStore();
 
 defineOptions({
@@ -128,6 +128,16 @@ const lastCita = computed(() => {
     },
   ];
 });
+
+const formatDate = (dateToFormate: string) => {
+  let fecha = new Date(dateToFormate);
+  fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+  return new Date(fecha).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
 
 const getItems = async () => {
   try {
