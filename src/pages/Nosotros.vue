@@ -2,34 +2,42 @@
   <q-page class="q-pa-md">
     <the-title title="¿Quiénes somos?" />
     <p class="q-mt-md q-pb-md q-px-md" style="text-align: justify">
-      Somos a una organización dedicada a optimizar el bienestar de los
-      individuos a través de terapias nutricionales especializadas. Nuestra
-      misión radica en proporcionar asesoramiento completo y entregar las
-      herramientas necesarias para potenciar su salud nutricional y/o
-      rendimiento deportivo.
+      Clinika es una plataforma diseñada para optimizar el trabajo de los
+      profesionales de la nutrición, facilitando la gestión de planes
+      nutricionales especializados y mejorando la interacción con sus clientes.
+      Nuestra misión es ofrecer herramientas intuitivas y eficientes que
+      permitan a los nutricionistas proporcionar asesoramiento personalizado,
+      adaptado a las necesidades individuales de cada persona, potenciando su
+      salud nutricional y rendimiento deportivo.
     </p>
-    <the-title title="¿De qué manera lo logramos?" />
+    <the-title title="¿Cómo lo logramos?" />
     <p class="q-mt-md q-px-md" style="text-align: justify">
-      Nuestro enfoque se basa en la experiencia y la investigación científica en
-      varios campos de la nutrición, incluyendo la nutrición general, la
-      nutrición deportiva, la nutrición clínica y el estudio del metabolismo.
-      Además, contamos con especialistas en el manejo de enfermedades crónicas
-      no transmisibles. De esta manera, cada consulta se transforma en una
-      sesión instructiva de gran valor, evitando la necesidad de recurrir a
-      dietas extremas o restrictivas.
+      En Clinika, combinamos la experiencia y el conocimiento en nutrición con
+      tecnología avanzada para ofrecer una plataforma que se adapta a las
+      necesidades de los profesionales. Nuestro enfoque está respaldado por la
+      ciencia y abarca áreas como la nutrición general, la deportiva, la clínica
+      y la relacionada con el metabolismo. Además, ofrecemos funcionalidades
+      específicas para el manejo de condiciones crónicas no transmisibles.
     </p>
     <p class="q-mt-md q-px-md" style="text-align: justify">
-      Todos nuestros planes nutricionales son diseñados teniendo en cuenta las
-      características fisiológicas individuales. Reconocemos que cada ser humano
-      es único y que su nutrición debe ajustarse a variables como la edad,
+      Cada nutricionista puede diseñar planes personalizados que consideren las
+      características fisiológicas individuales de sus clientes, tales como
       género, altura, metabolismo, estilo de vida, nivel de actividad física,
-      rutinas de ejercicio, horarios de comida, entre otros factores.
+      horarios de comida, entre otros factores. Clinika convierte cada
+      interacción en una experiencia de valor, facilitando una comunicación más
+      fluida y evitando la necesidad de recurrir a enfoques restrictivos o
+      extremos.
+    </p>
+    <p class="q-mt-md q-px-md" style="text-align: justify">
+      Todos los planes y asesorías pueden ser adaptados fácilmente a las
+      necesidades de cada cliente, garantizando un enfoque completamente
+      individualizado para maximizar resultados y bienestar.
     </p>
     <div class="q-flex justify-center">
       <h5 class="q-mt-md q-mb-md q-px-md">TEAM CLINIKA</h5>
-      <q-btn href="https://www.google.com" target="_blank" color="primary"
+      <!-- <q-btn href="https://www.google.com" target="_blank" color="primary"
         >Más información</q-btn
-      >
+      > -->
     </div>
   </q-page>
 </template>

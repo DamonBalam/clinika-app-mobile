@@ -38,11 +38,11 @@
       </div>
 
       <div class="col-12 q-pa-sm">
-        <div class="text-start text-subtitle2">
+        <div class="text-start text-subtitle1">
           <span class="text-bold q-mr-sm text-gray">Última actualización:</span>
           <span class="text-gray">{{ formatDate(lastCitaDate) }}</span>
         </div>
-        <div class="text-start text-subtitle1">
+        <div class="text-start text-subtitle2">
           <span class="text-gray">Estos son los datos de tu última cita</span>
         </div>
       </div>
@@ -71,7 +71,6 @@ import { citaControlDataServices } from "../services/CitasControl/CitaControlDat
 import { ICitaControl } from "../services/CitasControl/CitaControl";
 import TheTitle from "../components/atoms/TheTitle.vue";
 import PerfilDataItem from "../components/Perfil/PerfilDataItem.vue";
-import { date } from "quasar";
 const store = useAuthStore();
 
 defineOptions({
@@ -107,7 +106,7 @@ const lastCita = computed(() => {
       value: `${data.weight} kg`,
     },
     {
-      label: "Masa Muscular",
+      label: "Masa muscular",
       value: `${data.muscle} kg`,
     },
     {
@@ -123,7 +122,7 @@ const lastCita = computed(() => {
       value: `${data.cc}`,
     },
     {
-      label: "Grasa Visceral",
+      label: "Grasa visceral",
       value: `${data.viseral_fat} kg`,
     },
   ];
