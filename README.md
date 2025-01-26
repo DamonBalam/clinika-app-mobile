@@ -17,7 +17,9 @@ quasar dev
 
 ### Build the app for production
 ```bash
-quasar build
+npm i -g  @quasar/icongenie
+npm run icons
+quasar build -m [android|ios]
 ```
 
 ### Customize the configuration
