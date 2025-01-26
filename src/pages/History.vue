@@ -21,10 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, onMounted, computed } from "vue";
+import {  ref, onMounted, computed } from "vue";
 import { useAuthStore } from "stores/auth";
 
-import { citaControlDataServices } from "../services/CitasControl/CitaControlDataService.ts";
+import { citaControlDataServices } from "../services/CitasControl/CitaControlDataService";
 import { ICitaControl } from "../services/CitasControl/CitaControl";
 
 const store = useAuthStore();

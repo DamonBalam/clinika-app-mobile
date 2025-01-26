@@ -5,6 +5,7 @@ const AppLayout = () => import("layouts/AppLayout.vue");
 const PerfilPage = () => import("pages/Perfil.vue");
 const PlanPage = () => import("pages/Plan.vue");
 const HistoryPage = () => import("pages/History.vue");
+const HistoryQuotes = () => import("pages/HistoryQuotes.vue");
 
 const ErrorNotFound = () => import("pages/ErrorNotFound.vue");
 
@@ -36,6 +37,12 @@ const routes: RouteRecordRaw[] = [
         name: "HistoryPage",
         meta: { requiresAuth: true },
         component: HistoryPage,
+      },
+      {
+        path: "quotes",
+        name: "HistoryQuotes",
+        meta: { requiresAuth: true },
+        component: HistoryQuotes,
       },
       {
         path: "plan",

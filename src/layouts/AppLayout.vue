@@ -99,6 +99,14 @@
           label="Histórico"
         />
 
+        <!-- <q-route-tab
+          to="/quotes"
+          exact
+          name="quotes"
+          icon="o_receipt_long"
+          label="Citas"
+        /> -->
+
         <q-route-tab
           to="/plan"
           exact
