@@ -86,7 +86,7 @@ const nameProfile = computed(() => {
 const lastCitaDate = computed(() => {
   const data = items.value[0] || {};
 
-  return data.date;
+  return data.date || "";
 });
 
 const clinic = computed(() => {
@@ -100,35 +100,47 @@ const nutri = computed(() => {
 const lastCita = computed(() => {
   const data = items.value[0] || {};
 
+  const peso = data.weight === undefined ? 0 : `${data.weight} kg`;
+  const musculo = data.muscle === undefined ? 0 : `${data.muscle} kg`;
+  const grasa = data.fat === undefined ? 0 : `${data.fat} kg`;
+  const porcentaje_grasa =
+    data.average_fat === undefined ? 0 : `${data.average_fat} %`;
+  const cc = data.cc === undefined ? 0 : `${data.cc} `;
+  const grasa_visceral = data.viseral_fat === undefined ? 0 : `${data.viseral_fat} kg`;
+
   return [
     {
       label: "Peso",
-      value: `${data.weight} kg`,
+      value: peso,
     },
     {
       label: "Masa muscular",
-      value: `${data.muscle} kg`,
+      value: musculo,
     },
     {
       label: "Grasa",
-      value: `${data.fat} kg`,
+      value: grasa,
     },
     {
       label: "% Grasa",
-      value: `${data.average_fat} %`,
+      value: porcentaje_grasa,
     },
     {
       label: "CC",
-      value: `${data.cc}`,
+      value: cc,
     },
     {
       label: "Grasa visceral",
-      value: `${data.viseral_fat} kg`,
+      value:grasa_visceral,
     },
   ];
 });
 
 const formatDate = (dateToFormate: string) => {
+  if (dateToFormate === "") {
+    return "No existen datos registrados";
+  }
+
   let fecha = new Date(dateToFormate);
   fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
   return new Date(fecha).toLocaleDateString("es-ES", {

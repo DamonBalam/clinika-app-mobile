@@ -17,11 +17,18 @@
         <q-skeleton width="100%" height="150px" />
       </div>
     </div>
+    <div
+      v-if="itemsFormatted.length === 0"
+      class="col-12 q-pa-sm text-bold text-center text-h6"
+      style="text-align: center"
+    >
+      <span>No hay datos disponibles</span>
+    </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import {  ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useAuthStore } from "stores/auth";
 
 import { citaControlDataServices } from "../services/CitasControl/CitaControlDataService";

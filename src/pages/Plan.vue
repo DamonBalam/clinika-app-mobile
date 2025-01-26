@@ -8,12 +8,12 @@
       <div class="col-12 q-pa-sm">
         <div class="text-center text-subtitle2">
           <span class="text-bold q-mr-sm">Fecha de actualización:</span>
-          <span>{{ formatDate(fecha) }}</span>
+          <span>{{ formatDate( fecha ) }}</span>
         </div>
       </div>
 
       <div
-        v-if="!isLoading"
+        v-if="!isLoading && fecha !== null"
         class="col-12 q-pa-sm"
         v-for="(value, key, index) in mealPlan"
         :key="index"
@@ -23,8 +23,16 @@
         </template>
       </div>
 
-      <div v-else class="col-12 q-pa-sm" v-for="n in 5">
+      <div v-else-if="isLoading" class="col-12 q-pa-sm" v-for="n in 5">
         <q-skeleton width="100%" height="150px" />
+      </div>
+
+      <div
+        v-else
+        class="col-12 q-pa-sm text-bold text-center text-h6"
+        style="text-align: center"
+      >
+        <span>No hay datos disponibles</span>
       </div>
     </div>
   </q-page>
@@ -49,6 +57,9 @@ const idCita = computed(() => {
 });
 
 const formatDate = (dateToFormate: string) => {
+
+  if (dateToFormate === null) return "No hay registro";
+
   let fecha = new Date(dateToFormate);
   fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
   return new Date(fecha).toLocaleDateString("es-ES", {
