@@ -58,7 +58,7 @@ const idCita = computed(() => {
 
 const formatDate = (dateToFormate: string) => {
 
-  if (dateToFormate === null) return "No hay registro";
+  if (dateToFormate === null) return "No hay registros";
 
   let fecha = new Date(dateToFormate);
   fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());

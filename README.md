@@ -19,7 +19,7 @@ quasar dev
 ```bash
 npm i -g  @quasar/icongenie
 npm run icons
-quasar build -m [android|ios]
+quasar build -m capacitor -T [ios|android] --ide
 ```
 
 ### Customize the configuration

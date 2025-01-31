@@ -7,7 +7,7 @@
     />
 
     <q-page-container class="q-pa-md bordered">
-      <div>
+      <div class="q-ml-md">
         <span class="titule-welcome">Bienvenido a</span>
         <div class="row justify-start q-my-sm">
           <q-img src="../assets/img/logo.png" width="240px" fit="cover" />

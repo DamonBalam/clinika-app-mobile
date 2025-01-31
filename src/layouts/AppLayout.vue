@@ -59,7 +59,7 @@
 
           <div class="absolute-bottom text-center" style="height: 200px">
             <q-img src="../assets/img/logo.png" style="width: 180px" />
-            <div class="text-weight-bold q-mt-md">{{ ageNow }} - v0.1</div>
+            <div class="text-weight-bold q-mt-md">{{ ageNow }} - v0.2</div>
           </div>
         </q-list>
       </q-scroll-area>
