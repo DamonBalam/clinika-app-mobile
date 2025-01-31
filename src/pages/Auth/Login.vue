@@ -112,151 +112,155 @@ function handleClick() {
 </script>
 
 <template>
-  <div>
-    <q-form
-      v-if="!showRecovery"
-      class="q-gutter-md q-mx-xl"
-      ref="myForm"
-      @submit="handleSubmit"
+  <q-form
+    v-if="!showRecovery"
+    class="q-gutter-md"
+    ref="myForm"
+    @submit="handleSubmit"
+  >
+    <div class="q-mb-none row justify-start">
+      <label for="email" class="label">Correo electrónico</label>
+    </div>
+    <q-input
+      id="email"
+      type="email"
+      rounded
+      dense
+      outlined
+      v-model="usuario"
+      class="q-my-none"
+      label="Ingresa tu correo electrónico"
+      :rules="[
+        (val) =>
+          (val && val.length > 0) || 'Ingrese un correo electrónico válido',
+      ]"
     >
-      <div class="q-mb-none row justify-center">
-        <label for="email" style="font-size: 18px">Correo electrónico</label>
-      </div>
-      <q-input
-        id="email"
-        type="email"
-        rounded
-        dense
-        outlined
-        v-model="usuario"
-        label="Ingresa tu correo electrónico"
-        :rules="[
-          (val) =>
-            (val && val.length > 0) || 'Ingrese un correo electrónico válido',
-        ]"
-      >
-        <template v-slot:prepend>
-          <q-icon name="o_email" />
-        </template>
-      </q-input>
-      <div class="q-mt-sm row justify-center">
-        <label for="password" style="font-size: 18px">Contraseña</label>
-      </div>
-      <q-input
-        id="password"
-        :type="isPwd ? 'password' : 'text'"
-        rounded
-        dense
-        outlined
-        v-model="password"
-        label="Ingresa tu contraseña"
-        :rules="[
-          (val) => (val && val.length > 0) || 'Ingrese una contraseña válida',
-        ]"
-      >
-        <template v-slot:prepend>
-          <q-icon name="o_lock" />
-        </template>
-        <template v-slot:append>
-          <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd = !isPwd"
-          />
-        </template>
-      </q-input>
+      <template v-slot:prepend>
+        <q-icon name="o_email" />
+      </template>
+    </q-input>
 
-      <div v-if="messageError">
-        <q-banner
-          inline-actions
-          class="text-white bg-red text-bold text-center"
-        >
-          {{ messageError }}
-        </q-banner>
-      </div>
-
-      <div class="row justify-center">
-        <q-toggle v-model="accept" label="Recordar contraseña" />
-      </div>
-
-      <div class="row justify-center">
-        <q-btn flat class="text-primary" @click.native="handleClick"
-          >¿Has olvidado tu contraseña?</q-btn
-        >
-      </div>
-
-      <div class="row justify-center">
-        <q-btn label="Iniciar Sesión" rounded type="submit" color="primary" />
-      </div>
-    </q-form>
-    <q-form
-      v-if="showRecovery"
-      class="q-gutter-md q-mx-xl"
-      ref="myFormRecovery"
-      @submit="handleRecoverySubmit"
+    <div class="q-mt-none row justify-start">
+      <label for="password" class="label">Contraseña</label>
+    </div>
+    <q-input
+      id="password"
+      :type="isPwd ? 'password' : 'text'"
+      rounded
+      dense
+      outlined
+      v-model="password"
+      label="Ingresa tu contraseña"
+      class="q-mt-none"
+      :rules="[
+        (val) => (val && val.length > 0) || 'Ingrese una contraseña válida',
+      ]"
     >
-      <div class="q-mb-none row justify-center">
-        <label for="email" style="font-size: 18px"
-          >Se enviara una nueva contraseña al correo electrónico
-          registrado</label
-        >
-      </div>
-      <q-input
-        id="email"
-        type="email"
-        rounded
-        dense
-        outlined
-        v-model="usuarioRecovery"
-        label="Ingresa tu correo electrónico"
-        :rules="[
-          (val) =>
-            (val && val.length > 0) || 'Ingrese un correo electrónico válido',
-        ]"
+      <template v-slot:prepend>
+        <q-icon name="o_lock" />
+      </template>
+      <template v-slot:append>
+        <q-icon
+          :name="isPwd ? 'visibility_off' : 'visibility'"
+          class="cursor-pointer"
+          @click="isPwd = !isPwd"
+        />
+      </template>
+    </q-input>
+
+    <div v-if="messageError">
+      <q-banner inline-actions class="text-white bg-red text-bold text-center">
+        {{ messageError }}
+      </q-banner>
+    </div>
+
+    <div class="q-mt-none row justify-center">
+      <q-btn
+        label="Iniciar Sesión"
+        type="submit"
+        color="primary"
+        class="full-width"
+      />
+    </div>
+
+    <div class="row justify-center">
+      <q-btn flat @click.native="handleClick" class="label-secondary"
+        >¿Has olvidado tu contraseña?</q-btn
       >
-        <template v-slot:prepend>
-          <q-icon name="o_email" />
-        </template>
-      </q-input>
+    </div>
+  </q-form>
+  <q-form
+    v-if="showRecovery"
+    class="q-gutter-md"
+    ref="myFormRecovery"
+    @submit="handleRecoverySubmit"
+  >
+    <div class="q-mb-none row justify-center">
+      <label for="email" class="label"
+        >Se enviara una nueva contraseña al correo electrónico registrado</label
+      >
+    </div>
+    <q-input
+      id="email"
+      type="email"
+      rounded
+      dense
+      outlined
+      v-model="usuarioRecovery"
+      label="Ingresa tu correo electrónico"
+      :rules="[
+        (val) =>
+          (val && val.length > 0) || 'Ingrese un correo electrónico válido',
+      ]"
+    >
+      <template v-slot:prepend>
+        <q-icon name="o_email" />
+      </template>
+    </q-input>
 
-      <div v-if="messageRecoveryComputed">
-        <q-banner
-          inline-actions
-          class="text-white bg-primary text-bold text-center"
-        >
-          {{ messageRecoveryComputed }}
-        </q-banner>
-      </div>
+    <div v-if="messageRecoveryComputed">
+      <q-banner
+        inline-actions
+        class="text-white bg-primary text-bold text-center"
+      >
+        {{ messageRecoveryComputed }}
+      </q-banner>
+    </div>
 
-      <div v-if="messageError">
-        <q-banner
-          inline-actions
-          class="text-white bg-red text-bold text-center"
-        >
-          {{ messageError }}
-        </q-banner>
-      </div>
+    <div v-if="messageError">
+      <q-banner inline-actions class="text-white bg-red text-bold text-center">
+        {{ messageError }}
+      </q-banner>
+    </div>
 
-      <div class="row justify-center">
-        <q-btn
-          label="Enviar"
-          rounded
-          type="submit"
-          color="primary"
-          style="width: 200px"
-          class="q-mb-md"
-        />
-        <q-btn
-          label="Regresar"
-          outline
-          rounded
-          @click="handleClick"
-          color="primary"
-          style="width: 200px"
-        />
-      </div>
-    </q-form>
-  </div>
+    <div class="row justify-center">
+      <q-btn
+        label="Enviar"
+        type="submit"
+        color="primary"
+        class="q-mb-md full-width"
+      />
+      <q-btn
+        label="Regresar"
+        flat
+        @click="handleClick"
+        class="label-secondary"
+        style="width: 200px"
+      />
+    </div>
+  </q-form>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4d5761;
+}
+
+.label-secondary {
+  font-size: 16px;
+  font-weight: 400;
+  color: #6c737f;
+}
+</style>

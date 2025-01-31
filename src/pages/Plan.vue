@@ -6,9 +6,9 @@
       </div>
 
       <div class="col-12 q-pa-sm">
-        <div class="text-center text-subtitle2">
-          <span class="text-bold q-mr-sm">Fecha de actualización:</span>
-          <span>{{ formatDate( fecha ) }}</span>
+        <div class="text-center text-subtitle1">
+          <span class="text-bold q-mr-sm text-gray">Fecha de actualización:</span>
+          <span class="text-gray">{{ formatDate( fecha ) }}</span>
         </div>
       </div>
 
@@ -148,3 +148,8 @@ onMounted(async () => {
   await getItems();
 });
 </script>
+<style lang="scss" scoped>
+.text-gray {
+  color: #525252 !important;
+}
+</style>

@@ -39,10 +39,10 @@
 
       <div class="col-12 q-pa-sm">
         <div class="text-start text-subtitle1">
-          <span class="text-bold q-mr-sm text-gray">Última actualización:</span>
+          <span class="text-bold q-mr-sm text-gray">Fecha actualización:</span>
           <span class="text-gray">{{ formatDate(lastCitaDate) }}</span>
         </div>
-        <div class="text-start text-subtitle2">
+        <div v-if="lastCitaDate !== ''" class="text-start text-subtitle2">
           <span class="text-gray">Estos son los datos de tu última cita</span>
         </div>
       </div>
@@ -106,7 +106,8 @@ const lastCita = computed(() => {
   const porcentaje_grasa =
     data.average_fat === undefined ? 0 : `${data.average_fat} %`;
   const cc = data.cc === undefined ? 0 : `${data.cc} `;
-  const grasa_visceral = data.viseral_fat === undefined ? 0 : `${data.viseral_fat} kg`;
+  const grasa_visceral =
+    data.viseral_fat === undefined ? 0 : `${data.viseral_fat} kg`;
 
   return [
     {
@@ -131,14 +132,14 @@ const lastCita = computed(() => {
     },
     {
       label: "Grasa visceral",
-      value:grasa_visceral,
+      value: grasa_visceral,
     },
   ];
 });
 
 const formatDate = (dateToFormate: string) => {
   if (dateToFormate === "") {
-    return "No existen datos registrados";
+    return "No hay registros";
   }
 
   let fecha = new Date(dateToFormate);
