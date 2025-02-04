@@ -96,7 +96,7 @@
           exact
           name="history"
           icon="o_receipt_long"
-          label="Histórico"
+          label="Historial"
         />
 
         <!-- <q-route-tab
