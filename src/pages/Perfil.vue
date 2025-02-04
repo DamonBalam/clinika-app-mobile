@@ -7,7 +7,7 @@
         </p>
       </div>
 
-      <div class="col-6 q-pa-sm">
+      <div class="col-6 q-pa-sm" v-if="showClinic">
         <q-card bordered flat>
           <q-card-section>
             <div class="text-subtitle1 text-bold text-center">
@@ -20,7 +20,7 @@
         </q-card>
       </div>
 
-      <div class="col-6 q-pa-sm">
+      <div class="col-6 q-pa-sm" v-if="showClinic">
         <q-card bordered flat>
           <q-card-section>
             <div class="text-subtitle1 text-bold text-center">
@@ -87,6 +87,14 @@ const lastCitaDate = computed(() => {
   const data = items.value[0] || {};
 
   return data.date || "";
+});
+
+const showClinic = computed(() => {
+  if (clinic.value !== "" && nutri.value !== "") {
+    return true;
+  }
+
+  return false;
 });
 
 const clinic = computed(() => {
