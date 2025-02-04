@@ -9,8 +9,8 @@
     <q-page-container class="q-pa-md bordered">
       <div class="q-ml-md">
         <span class="titule-welcome">Bienvenido a</span>
-        <div class="row justify-start q-my-sm">
-          <q-img src="../assets/img/logo.png" width="240px" fit="cover" />
+        <div class="row justify-start q-mt-none q-mb-sm">
+          <q-img src="../assets/img/logo.png" width="180px" fit="cover" />
         </div>
       </div>
 

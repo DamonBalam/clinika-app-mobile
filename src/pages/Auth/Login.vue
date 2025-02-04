@@ -176,15 +176,15 @@ function handleClick() {
 
     <div class="q-mt-none row justify-center">
       <q-btn
-        label="Iniciar Sesión"
+        label="Iniciar sesión"
         type="submit"
         color="primary"
-        class="full-width"
+        class="full-width text-btn"
       />
     </div>
 
     <div class="row justify-center">
-      <q-btn flat @click.native="handleClick" class="label-secondary"
+      <q-btn flat @click.native="handleClick" class="label-secondary text-btn"
         >¿Has olvidado tu contraseña?</q-btn
       >
     </div>
@@ -238,13 +238,13 @@ function handleClick() {
         label="Enviar"
         type="submit"
         color="primary"
-        class="q-mb-md full-width"
+        class="q-mb-md full-width text-btn"
       />
       <q-btn
         label="Regresar"
         flat
         @click="handleClick"
-        class="label-secondary"
+        class="label-secondary text-btn"
         style="width: 200px"
       />
     </div>
@@ -262,5 +262,12 @@ function handleClick() {
   font-size: 16px;
   font-weight: 400;
   color: #6c737f;
+}
+
+.text-btn {
+  text-transform: inherit !important;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
 }
 </style>
