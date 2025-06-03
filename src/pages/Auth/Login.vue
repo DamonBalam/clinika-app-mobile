@@ -45,28 +45,25 @@ async function handleSubmit() {
   //@ts-ignore
   myForm.value.validate().then(async (success) => {
     if (success) {
-      try {
-        const { code, data, msg } = await authDataServices.login(
-          usuario.value,
-          password.value
-        );
+      const { code, data, msg } = await authDataServices.login(
+        usuario.value,
+        password.value
+      );
 
-        console.log("data", data);
+      console.log("data", data);
 
-        if (code === 200) {
-          console.log("success");
+      if (code === 200) {
+        login(data);
+      } else {
+        message.value = msg || "Error al iniciar sesión";
 
-          login(data);
-        } else {
-          message.value = msg || "Error al iniciar sesión";
-
-          setTimeout(() => {
-            message.value = "";
-          }, 3000);
-        }
-      } catch (error) {
-        console.log(error);
+        setTimeout(() => {
+          message.value = "";
+        }, 3000);
       }
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
   });
   disabled.value = false;

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-// import { authDataServices } from "src/services/Auth/AuthDataService";
 import { Cookies } from "quasar";
+import { authDataServices } from "src/services/Auth/AuthDataService";
 import { IUser } from "src/services/Auth/IUser";
 
 export interface AuthState {
@@ -63,14 +63,13 @@ export const useAuthStore = defineStore("auth", {
       this.token = payload.token;
     },
     setLastIDCita(payload: number | null) {
-      console.log("payload", payload);
-
       if (payload !== null) {
         this.lastIdCita = payload;
       }
     },
     setLocalStorage(payload: any) {
       /* Cookies */
+      localStorage.setItem("token", payload.token);
       Cookies.set("user", payload.user);
       Cookies.set("access_token", payload.token);
     },
@@ -81,7 +80,7 @@ export const useAuthStore = defineStore("auth", {
     },
     async logout() {
       try {
-        // await authDataServices.logout();
+        await authDataServices.logout();
         // this.deleteLocalStorage();
 
         this.user = {
@@ -95,6 +94,7 @@ export const useAuthStore = defineStore("auth", {
           codigo_area: "",
         };
         this.token = "";
+        localStorage.removeItem("token");
         /* Cookies */
         Cookies.remove("user");
         Cookies.remove("access_token");

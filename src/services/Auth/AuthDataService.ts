@@ -1,21 +1,21 @@
-import { API } from "src/common/api";
+import api from "../axios";
 import { IResponse, IResponseAuth } from "src/services/Response";
 import { IUser } from "./IUser";
 
 class AuthDataService {
   async login(email: string, password: string): Promise<IResponseAuth<IUser>> {
-    let response = await API.post("login", { data: { email, password } });
+    let response = await api.post("login", { email, password });
 
     return response.data;
   }
 
   async logout(): Promise<IResponse<null>> {
-    let response = await API.get("logout", {});
+    let response = await api.get("logout");
     return response;
   }
 
   async recover(email: string): Promise<IResponse<any>> {
-    let response = await API.post("recover/password", { data: { email } });
+    let response = await api.post("recover/password", { data: { email } });
     return response;
   }
 
@@ -23,7 +23,7 @@ class AuthDataService {
     email: string,
     password: string
   ): Promise<IResponse<any>> {
-    let response = await API.post("recover/custom-password", {
+    let response = await api.post("recover/custom-password", {
       data: { email, password },
     });
     return response;
