@@ -6,7 +6,7 @@ const router = useRouter();
 const api = axios.create({
   baseURL:
     process.env.API ||
-    "https://phplaravel-1203103-4252935.cloudwaysapps.com/api/",
+    "https://phplaravel-1590331-6220128.cloudwaysapps.com/api/",
 });
 
 api.interceptors.request.use((config) => {
